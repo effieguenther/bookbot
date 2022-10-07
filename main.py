@@ -1,18 +1,24 @@
-def main():
+book_path = "books/frankenstein.txt"
 
-    with open("books/frankenstein.txt") as f:
-        text = f.read()
+def main():
+    text = get_book(book_path)    
     dictionary = letter_count(text)
     sorted_list = dict_to_sorted(dictionary)
 
     print("--- Begin report of books.frankenstein.txt ---")
     print(f"{count_words(text)} words found in the document")
+    print()
+
     for item in sorted_list:
         if not item["char"].isalpha():
             continue
         print(f"The '{item['char']}' character was found {item['num']} times")
     print("--- End report ---")
     
+def get_book(book):
+    with open("books/frankenstein.txt") as f:
+        return f.read()
+
 def count_words(book):
     words = book.split()
     return len(words)   
@@ -26,6 +32,7 @@ def letter_count(book):
         else:
             dictionary[lowered] = 1
     return dictionary
+
 def sort_on(d):
     return d['num']
 
